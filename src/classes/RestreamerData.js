@@ -132,6 +132,12 @@ class RestreamerData {
                     if(parseInt(dbdata.options.output.hls.timeout) > 2147) {
                         dbdata.options.output.hls.timeout = '10';
                     }
+                    
+                    if(process.env.RS_FORCESTART != '') {
+                        dbdata.addresses.srcAddress = process.env.RS_INPUTSTREAM;
+                        dbdata.states.repeatToLocalNginx.type = 'connected';
+                        dbdata.userActions.repeatToLocalNginx = 'start';
+                    }
 
                     if (!fs.existsSync(dbPath)) {
                         fs.mkdirSync(dbPath);
